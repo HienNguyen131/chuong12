@@ -1,8 +1,14 @@
-FROM tomcat:10.1.26
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Sử dụng image Tomcat
+FROM tomcat:10.0-jdk17
 
-COPY *.war /usr/local/tomcat/webapps
+# Xóa các ứng dụng mặc định của Tomcat (tùy chọn)
+RUN rm -rf /usr/local/tomcat/webapps/ROOT
 
+# Sao chép file .war vào thư mục webapps
+COPY target/chuong12-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/chuong12.war
+
+# Expose port
 EXPOSE 8080
 
+# Lệnh khởi động Tomcat
 CMD ["catalina.sh", "run"]
